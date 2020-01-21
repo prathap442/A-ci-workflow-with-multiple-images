@@ -1,0 +1,58 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+  redis:
+    image: 'redis:latest'
+  expressserver:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      # the above statement says to ignore the node_modules folder to be untouched in the app/ directory undisturbed
+      - ./server:/app
+    depends_on:
+      - postgres
+      - redis
+    environment: 
+      # these environment variables are set on the basis of the keys.js file .
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=postgres
+      #   here we name the service postgre for the PGHOST
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+
+  feclient:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client/:/app
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./worker/:/app
+    # depends_on basically says not to start the container by name worker
+    # until postgres and redis servers are up
+    depends_on:
+      - postgres
+      - redis    
+  nginx:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx/
+    restart: always
+    ports: 
+      - 3050:80
+    depends_on:
+      - feclient
+      - expressserver 
+   # 3050 of the localmachine is mapped to port 80 of the container
