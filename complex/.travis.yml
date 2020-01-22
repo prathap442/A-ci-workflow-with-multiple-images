@@ -10,6 +10,7 @@ services:
 # So the necessary dependencies and all could not be got in the production Dockerfile as we do only
 # "npm run build" in production
 before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t prathap-react:fe-client-v1 -f ./client/Dockefile.dev ./client/ 
 
 script:
@@ -21,7 +22,6 @@ after_success:
   - docker build -t prathap/multi-worker ./worker
   - docker build -t prathap/multi-server ./server
   - docker build -t prathap/multi-nginx  ./nginx
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push prathap/mutli-client
   - docker push prathap/multi-worker
   - docker push prathap/multi-server
