@@ -1,8 +1,8 @@
 # this is required statement for having the sudo permissions
 sudo: required
-language: node_js
-node_js:
-  - "12.13"
+language: ruby
+ruby:
+  - "2.5.3"
 services:
   - docker
 #before_install we basically need to run the test suit for the fe-client and to do this 
@@ -26,3 +26,4 @@ after_success:
   - docker push prathap/multi-worker
   - docker push prathap/multi-server
   - docker push prathap/multi-nginx
+language: generic
