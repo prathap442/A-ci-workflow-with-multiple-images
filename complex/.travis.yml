@@ -1,6 +1,8 @@
 # this is required statement for having the sudo permissions
 sudo: required
 language: node_js
+node_js:
+  - "12.13"
 services:
   - docker
 #before_install we basically need to run the test suit for the fe-client and to do this 
