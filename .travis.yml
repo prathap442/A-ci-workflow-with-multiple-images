@@ -7,6 +7,7 @@ services:
 # So the necessary dependencies and all could not be got in the production Dockerfile as we do only
 # "npm run build" in production
 before_install:
+  - echo $DOCKER_PASSWORD
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker build -t prathap-react/fe-client-v1 -f ./client/Dockefile.dev ./client/ 
 
