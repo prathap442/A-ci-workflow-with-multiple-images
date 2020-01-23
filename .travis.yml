@@ -15,11 +15,11 @@ script:
 # In this way the building of the images after the build of the test coverage is possible
   - docker run prathap-react/fe-client-v1 npm test -- --coverage
 after_success:
-  - docker build -t prathap/multi-client ./client
-  - docker build -t prathap/multi-worker ./worker
-  - docker build -t prathap/multi-server ./server
-  - docker build -t prathap/multi-nginx  ./nginx
-  - docker push prathap/mutli-client
-  - docker push prathap/multi-worker
-  - docker push prathap/multi-server
-  - docker push prathap/multi-nginx
+  - docker build -t dockerprathap442/multi-client ./client
+  - docker build -t dockerprathap442/multi-worker ./worker
+  - docker build -t dockerprathap442/multi-server ./server
+  - docker build -t dockerprathap442/multi-nginx  ./nginx
+  - docker push dockerprathap442/mutli-client
+  - docker push dockerprathap442/multi-worker
+  - docker push dockerprathap442/multi-server
+  - docker push dockerprathap442/multi-nginx
