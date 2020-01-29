@@ -1,3 +1,8 @@
+<img src="https://travis-ci.org/prathap442/A-ci-workflow-with-multiple-images.svg?branch=master" alt="build:passed">
+
+
+![Build Status](https://travis-ci.org/prathap442/A-ci-workflow-with-multiple-images.svg?branch=master" alt="build:passed)
+
 # Making Use of the Dockerfile.dev 
 
 In this project under server folder
