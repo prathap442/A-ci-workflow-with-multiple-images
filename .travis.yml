@@ -1,26 +1,21 @@
-# this is required statement for having the sudo permissions
 sudo: required
 services:
-  - docker
-#before_install we basically need to run the test suit for the fe-client and to do this 
-# we need to make usage of the Dockerfile.dev because in the production we are just being provided with the build folder
-# So the necessary dependencies and all could not be got in the production Dockerfile as we do only
-# "npm run build" in production
+- docker
 before_install:
-  - echo "$DOCKER_PASSWORD"
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker build -t prathap-react/fe-client-v1 -f ./client/Dockefile.dev ./client/ 
-
+- echo "$DOCKER_PASSWORD"
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+- docker build -t prathap-react/fe-client-v1 -f ./client/Dockefile.dev ./client/
 script:
-# Here if the scripts exit with a status code of other than 0 then then after_success block wont be made to run
-# In this way the building of the images after the build of the test coverage is possible
-  - docker run prathap-react/fe-client-v1 npm test -- --coverage
+- docker run prathap-react/fe-client-v1 npm test -- --coverage
 after_success:
-  - docker build -t dockerprathap442/multi-client ./client
-  - docker build -t dockerprathap442/multi-worker ./worker
-  - docker build -t dockerprathap442/multi-server ./server
-  - docker build -t dockerprathap442/multi-nginx  ./nginx
-  - docker push dockerprathap442/mutli-client
-  - docker push dockerprathap442/multi-worker
-  - docker push dockerprathap442/multi-server
-  - docker push dockerprathap442/multi-nginx
+- docker build -t prathapdocker442/multi-client ./client
+- docker build -t prathapdocker442/multi-worker ./worker
+- docker build -t prathapdocker442/multi-server ./server
+- docker build -t prathapdocker442/multi-nginx  ./nginx
+- docker push prathapdocker442/mutli-client
+- docker push prathapdocker442/multi-worker
+- docker push prathapdocker442/multi-server
+- docker push prathapdocker442/multi-nginx
+env:
+  global:
+    secure: frf6b/Ze0ogJEEVqD8D5b+jpJY8jWQW7teWIWuk672gBEYOoxoZmG4ewfmeUlJGdJxNJ/E50yBOdBVyNdO1FoLVRI4wah5e+A7R7Ir0oGmzX76bzYJS4afMpqlf26bTYjLI5FuUfssEGS0bbLQZ4lSNgmFSlNx3lVEULu89YKA/azKP64TVTuDi8smoaUvVnjdpGlO6lPktWX36x5YksHoiIpbgzvhQJexu5U/DcrVS7D0zbm2fX/QxeT5rVxvyvjMM8fOFi5FzQ4x8GeeRtpqDKKzimTNX1cHebAxaX70jKL5ekj68z26Ovu7/lqOGEJi5VxuYe3wWf8wfvVfp3icy4KNWPIRS0wqHBQXfxktk4ui0WX210y1Xyvjfq/rnP9RHcYFLosznc7l8FNXm2DkZVxmDilyIZCphEW+YuUb0JLO4jC0VGupAAgIyR0laGIwUhU7tLoR4Fj+Ga6LWANWgYH5TJK7k3c2TyUG9BLxvSD0idn3xph4XhCMQ1mHKnzZ8Ewe6ngvE14O+vG+5WJuy53YLp+AtpdP+L3riLy4fon+Q/jkb4BJHgEjaryA4rbdSjQZmZ0NCFhbN7UiD5Kn25VUDvNRSuNAgFu1Uof7yvYVCttGCoAs0FIRzicElcrk0aSkdVlVCCq5mGYXLhl+zKxpR7M7KS+RQsYwjIsjg=
