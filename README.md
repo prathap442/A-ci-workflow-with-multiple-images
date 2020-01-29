@@ -1,7 +1,4 @@
-<img src="https://travis-ci.org/prathap442/A-ci-workflow-with-multiple-images.svg?branch=master" alt="build:passed">
-
-
-![Build Status](https://travis-ci.org/prathap442/A-ci-workflow-with-multiple-images.svg?branch=master" alt="build:passed)
+[![Build Status](https://travis-ci.org/prathap442/A-ci-workflow-with-multiple-images.svg?branch=master")](https://travis-ci.com/prathap442/A-ci-workflow-with-multiple-images)
 
 # Making Use of the Dockerfile.dev 
 
