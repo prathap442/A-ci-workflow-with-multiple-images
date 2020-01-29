@@ -4,7 +4,7 @@ services:
 before_install:
 - echo "$DOCKER_PASSWORD"
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-- docker build -t prathap-react/fe-client-v1 -f ./client/Dockefile.dev ./client/
+- docker build -t prathap-react/fe-client-v1 -f ./client/Dockerfile.dev ./client/
 script:
 - docker run prathap-react/fe-client-v1 npm test -- --coverage
 after_success:
