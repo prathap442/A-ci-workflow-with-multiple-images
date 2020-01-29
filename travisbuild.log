@@ -1,0 +1,146 @@
+0.06s
+worker_info
+
+Worker information
+
+0.13s0.00s0.01s0.00s0.02s
+system_info
+
+Build system information
+
+0.04s0.01s0.32s0.18s0.05s0.00s0.04s0.00s0.01s0.01s0.01s0.01s0.01s0.00s0.00s0.02s0.00s0.01s0.21s0.00s0.00s0.00s0.01s0.00s0.09s0.01s0.76s0.00s0.08s6.03s0.00s2.39s0.00s2.19s
+docker_mtu
+resolvconf
+services
+
+3.02s$ sudo systemctl start docker
+git.checkout
+
+0.58s$ git clone --depth=50 --branch=master https://github.com/prathap442/A-ci-workflow-with-multiple-images.git prathap442/A-ci-workflow-with-multiple-images
+
+0.01s
+
+Setting environment variables from repository settings
+
+$ export DOCKER_PASSWORD=[secure]
+
+$ export DOCKER_ID=[secure]
+
+Setting environment variables from .travis.yml
+
+$ export DOCKERID=[secure]
+
+$ export DOCKERPASSWORD=[secure]
+
+rvm
+
+0.62s$ rvm use default
+
+ruby.versions
+
+$ ruby --version
+
+before_install.1
+
+0.00s$ echo "$DOCKER_PASSWORD"
+before_install.2
+
+0.51s$ echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+before_install.3
+
+41.96s$ docker build -t prathap-react/fe-client-v1 -f ./client/Dockerfile.dev ./client/
+
+No Gemfile found, skipping bundle install
+
+2.84s$ docker run prathap-react/fe-client-v1 npm test -- --coverage
+
+> client@0.1.0 test /app
+
+> react-scripts test --env=jsdom "--coverage"
+
+ PASS  src/App.test.js
+
+  ✓ renders without crashing (1ms)
+
+Test Suites: 1 passed, 1 total
+
+Tests:       1 passed, 1 total
+
+Snapshots:   0 total
+
+Time:        0.996s
+
+Ran all test suites.
+
+--------------------------|----------|----------|----------|----------|-------------------|
+
+File                      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+
+--------------------------|----------|----------|----------|----------|-------------------|
+
+All files                 |        0 |        0 |        0 |        0 |                   |
+
+ App.js                   |        0 |      100 |        0 |        0 |                10 |
+
+ Fib.js                   |        0 |      100 |        0 |        0 |... 44,45,52,56,62 |
+
+ OtherPage.js             |        0 |      100 |        0 |        0 |                 5 |
+
+ index.js                 |        0 |        0 |        0 |        0 |     1,2,3,4,5,7,8 |
+
+ registerServiceWorker.js |        0 |        0 |        0 |        0 |... 36,137,138,139 |
+
+--------------------------|----------|----------|----------|----------|-------------------|
+
+Handlebars: Access has been denied to resolve the property "statements" because it is not an "own property" of its parent.
+
+You can add a runtime option to disable the check or this warning:
+
+See https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access for details
+
+Handlebars: Access has been denied to resolve the property "branches" because it is not an "own property" of its parent.
+
+You can add a runtime option to disable the check or this warning:
+
+See https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access for details
+
+Handlebars: Access has been denied to resolve the property "functions" because it is not an "own property" of its parent.
+
+You can add a runtime option to disable the check or this warning:
+
+See https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access for details
+
+Handlebars: Access has been denied to resolve the property "lines" because it is not an "own property" of its parent.
+
+You can add a runtime option to disable the check or this warning:
+
+See https://handlebarsjs.com/api-reference/runtime-options.html#options-to-control-prototype-access for details
+
+The command "docker run prathap-react/fe-client-v1 npm test -- --coverage" exited with 0.
+
+after_success.1
+
+6.81s$ docker build -t [secure]/multi-client ./client
+after_success.2
+
+8.47s$ docker build -t [secure]/multi-worker ./worker
+after_success.3
+
+10.06s$ docker build -t [secure]/multi-server ./server
+after_success.4
+
+0.31s$ docker build -t [secure]/multi-nginx  ./nginx
+after_success.5
+
+0.07s$ docker push [secure]/mutli-client
+after_success.6
+
+6.69s$ docker push [secure]/multi-worker
+after_success.7
+
+7.34s$ docker push [secure]/multi-server
+after_success.8
+
+4.83s$ docker push [secure]/multi-nginx
+
+Done. Your build exited with 0.

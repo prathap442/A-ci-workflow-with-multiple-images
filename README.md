@@ -49,3 +49,59 @@ server {
 
 
 ```
+
+
+
+* Pushing up of the multi-docker-images to the github makes the task verylate for me to figure being just one syntax error that played me to get fixed for another 5 days.
+
+* At first i would like to place my build log that i got from the `travis` and it has been shown in the travisbuild.log.
+
+
+Now let us revise on some of the things on the travis.yml file
+```
+before_install:
+  - echo "$DOCKER_PASSWORD"
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker build -t prathap-react/fe-client-v1 -f ./client/Dockerfile.dev ./client/
+```
+
+Now the echo "$DOCKER_PASSWORD" just tries to display the password
+
+Command explanation
+-----
+
+```
+  $ echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+```
+Here the initialized DOCCKER_PASSWORD global variable in the environment is being used when the docker login -u <DOCKERID> is being used
+Now instead of asking the password we can directly make the terminal to understand the password without asking us during the travis build
+
+```
+  $ echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+```
+Now the last command in the before_install is also being explained as:
+```
+  $  docker build -t prathap-react/fe-client-v1 -f ./client/Dockerfile.dev ./client/
+```
+Now the image built is being using Dockerfile.dev because we need to run the test cases in the Dockerfile.dev as the reactjs is available there and then but when we push the things to the production at that time we cannot because the only build file which contains html and javascript is only available to us
+
+Now the image build with the tag `prathap-react/fe-client-v1` is utilised for the sake of the testing and the testing can be done with the command.
+
+```
+  $ docker run prathap-react/fe-client-v1 npm test -- --coverage
+```
+
+Now once we cover the test cases then we can proceed further in building the images and then pushing all the images to the users dockerhub
+
+```
+after_success:
+  - docker build -t prathapdocker442/multi-client ./client
+  - docker build -t prathapdocker442/multi-worker ./worker
+  - docker build -t prathapdocker442/multi-server ./server
+  - docker build -t prathapdocker442/multi-nginx  ./nginx
+  - docker push prathapdocker442/mutli-client
+  - docker push prathapdocker442/multi-worker
+  - docker push prathapdocker442/multi-server
+  - docker push prathapdocker442/multi-nginx
+```
+
