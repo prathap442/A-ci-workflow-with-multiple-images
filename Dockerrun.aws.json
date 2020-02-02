@@ -1,3 +1,36 @@
 {
-    
+  "AwsDockerVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "feclient",
+      "image": "prathapdocker442/multi-client",
+      "hostname": "feclient",
+      "essential": false
+    },
+    {
+      "name": "express_server",
+      "image": "prathapdocker442/multi-server",
+      "hostname": "express_server",
+      "essential": true   
+    },
+    {
+      "name": "worker",
+      "image": "prathapdocker442/multi-worker",
+      "hostname":  "redis",
+      "essential": false
+    },
+    {
+      "name": "nginx", 
+      "image": "prathapdocker442/multi-nginx",
+      "hostname":  "nginx",
+      "essential": true,
+      "portMappings": [
+          {
+            "containerPort": 80,
+            "hostPort": 80
+          }
+      ],
+      "links":[ "express_server","feclient"]
+    }
+  ]
 }

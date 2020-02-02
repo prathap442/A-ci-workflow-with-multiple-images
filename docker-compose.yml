@@ -16,7 +16,8 @@ services:
       - postgres
       - redis
     environment: 
-      # these environment variables are set on the basis of the keys.js file .
+      # the redis_host here is directly referred to redis server 
+      # by using redis keyword refers to the service name redis
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - PGUSER=postgres
